@@ -1,20 +1,20 @@
-import { taskState } from "./taskState";
-import { taskItem } from "../components/taskItem";
+import { TaskState } from "./TaskState";
+import { TaskItem } from "../components/TaskItem";
 
-export class notStartedState implements taskState {
-  public startTask(task: taskItem): void {
-    console.error("Task is already archived: ${task.title}.");
+export class ArchivedState implements TaskState {
+  public startTask(task: TaskItem): void {
+    console.error(`Task is already archived: ${task.title}.`);
   }
 
-  public blockTask(task: taskItem): void {
-    console.error("Task is already archived: ${task.title}.");
+  public blockTask(task: TaskItem): void {
+    console.error(`Task is already archived: ${task.title}.`);
   }
 
-  public completeTask(task: taskItem): void {
-    console.error("Task is already archived: ${task.title}.");
+  public completeTask(task: TaskItem): void {
+    console.error(`Task is already archived: ${task.title}.`);
   }
 
-  public archiveTask(task: taskItem): void {
-    console.error("Task is already archived: ${task.title}.");
+  public archiveTask(task: TaskItem): void {
+    console.error(`Task is already archived: ${task.title}.`);
   }
 }

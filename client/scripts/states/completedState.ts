@@ -1,22 +1,22 @@
-import { taskState } from "./taskState";
-import { taskItem } from "../components/taskItem";
-import { archivedState } from "./archivedState";
+import { TaskState } from "./TaskState";
+import { TaskItem } from "../components/TaskItem";
+import { ArchivedState } from "./ArchivedState";
 
-export class notStartedState implements taskState {
-  public startTask(task: taskItem): void {
-    console.error("Task already completed: ${task.title}.");
+export class CompletedState implements TaskState {
+  public startTask(task: TaskItem): void {
+    console.error(`Task already completed: ${task.title}.`);
   }
 
-  public blockTask(task: taskItem): void {
-    console.error("Task already completed: ${task.title}.");
+  public blockTask(task: TaskItem): void {
+    console.error(`Task already completed: ${task.title}.`);
   }
 
-  public completeTask(task: taskItem): void {
-    console.error("Task already completed: ${task.title}.");
+  public completeTask(task: TaskItem): void {
+    console.error(`Task already completed: ${task.title}.`);
   }
 
-  public archiveTask(task: taskItem): void {
-    console.log("Archiving task: ${task.title}");
-    task.setState(new archivedTask());
+  public archiveTask(task: TaskItem): void {
+    console.log(`Archiving task: ${task.title}`);
+    task.setState(new ArchivedState());
   }
 }

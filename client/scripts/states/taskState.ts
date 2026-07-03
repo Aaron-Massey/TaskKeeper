@@ -1,8 +1,8 @@
-import { taskItem } from "../components/taskItem";
+import { TaskItem } from "../components/TaskItem";
 
-export interface taskState {
-  startTask(task: taskItem): void;
-  blockTask(task: taskItem): void;
-  completeTask(task: taskItem): void;
-  archiveTask(task: taskItem): void;
+export interface TaskState {
+  startTask(task: TaskItem): void;
+  blockTask(task: TaskItem): void;
+  completeTask(task: TaskItem): void;
+  archiveTask(task: TaskItem): void;
 }

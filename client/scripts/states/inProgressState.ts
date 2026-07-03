@@ -1,26 +1,26 @@
-import { taskState } from "./taskState";
-import { taskItem } from "../components/taskItem";
-import { blockedState } from "./blockedState";
-import { archivedState } from "./archivedState";
-import { completedState } from "./completedState";
+import { TaskState } from "./TaskState";
+import { TaskItem } from "../components/TaskItem";
+import { BlockedState } from "./BlockedState";
+import { ArchivedState } from "./ArchivedState";
+import { CompletedState } from "./CompletedState";
 
-export class notStartedState implements taskState {
-  public startTask(task: taskItem): void {
+export class InProgressState implements TaskState {
+  public startTask(task: TaskItem): void {
     console.error("Task Already Started: ${task.title}");
   }
 
-  public blockTask(task: taskItem): void {
+  public blockTask(task: TaskItem): void {
     console.log("Blocking task: $task.title");
-    task.setState(new blockedState());
+    task.setState(new BlockedState());
   }
 
-  public completeTask(task: taskItem): void {
+  public completeTask(task: TaskItem): void {
     console.log("Completing Task: ${task.title}");
-    task.setTask(new completedState());
+    task.setState(new CompletedState());
   }
 
-  public archiveTask(task: taskItem): void {
+  public archiveTask(task: TaskItem): void {
     console.log("Archiving task: ${task.title}");
-    task.setState(new archivedState());
+    task.setState(new ArchivedState());
   }
 }
