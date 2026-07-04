@@ -29,6 +29,7 @@ export function createTask(task: TaskComponent): HTMLElement {
   actions.className = 'actions';
   actions.innerHTML = `
     <button>${icons.add}</button>
+    <button>${icons.edit}</button>
     <button>${icons.trash}</button>
   `
 
