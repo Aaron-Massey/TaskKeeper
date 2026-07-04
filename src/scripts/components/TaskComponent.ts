@@ -1,7 +1,8 @@
+import { TaskState } from "../states/TaskState";
+
 export interface TaskComponent {
   title: string;
   description: string;
-  dueDate: Date;
 
   display(indentation?: string): void;
 

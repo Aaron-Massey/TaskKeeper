@@ -5,7 +5,7 @@ import { NotStartedState } from "../states/NotStartedState";
 export class TaskItem implements TaskComponent {
   public title: string;
   public description: string;
-  public dueDate: Date;
+
   private id: number;
 
   private state: TaskState;
@@ -14,12 +14,6 @@ export class TaskItem implements TaskComponent {
     this.title = title;
 
     this.description = description;
-
-    if (dueDate) {
-      this.dueDate = dueDate;
-    } else {
-      this.dueDate = new Date();
-    }
 
     this.id = id;
 
@@ -44,12 +38,7 @@ export class TaskItem implements TaskComponent {
   public completeTask(): void {
     this.state.completeTask(this);
   }
-  public archiveTask(): void {
-    this.state.archiveTask(this);
-  }
-  public blockTask(): void {
-    this.state.blockTask(this);
-  }
+
   public display(indentation: string = ""): void {
     console.log(
       `[Task: ${this.title}] - Status: ${this.state.constructor.name}`,

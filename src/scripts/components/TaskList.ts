@@ -1,16 +1,27 @@
 import { TaskComponent } from "./TaskComponent";
+import { TaskState } from "../states/TaskState";
 
 export class TaskList implements TaskComponent {
   public title: string;
   public description: string;
-  public dueDate: Date;
+
+  private id: number;
+  private state: TaskState;
 
   private children: TaskComponent[] = [];
 
-  constructor(title: string, description: string, dueDate: Date) {
+  constructor(
+    title: string,
+    description: string,
+
+    id: number,
+    state: TaskState,
+  ) {
     this.title = title;
     this.description = description;
-    this.dueDate = dueDate;
+
+    this.id = id;
+    this.state = state;
   }
 
   public addComponent(component: TaskComponent): void {
@@ -32,5 +43,13 @@ export class TaskList implements TaskComponent {
     for (const child of this.children) {
       child.display(indentation + " ");
     }
+  }
+
+  public getID() {
+    return this.id;
+  }
+
+  public getState() {
+    return this.state;
   }
 }
