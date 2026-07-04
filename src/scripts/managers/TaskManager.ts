@@ -1,6 +1,7 @@
 import { TaskList } from "../components/TaskList";
 import { TaskItem } from "../components/TaskItem";
 import { TaskComponent } from "../components/TaskComponent";
+import { NotStartedState } from "../states/NotStartedState";
 
 export class taskManager {
   public rootFolder: TaskList;
@@ -10,7 +11,9 @@ export class taskManager {
     this.rootFolder = new TaskList(
       projectName,
       "The root folder for all tasks",
-      new Date(),
+
+      this.generateID(),
+      new NotStartedState(),
     );
   }
 
@@ -23,14 +26,8 @@ export class taskManager {
     title: string,
     description: string,
     targetFolder: TaskList,
-    dueDate?: Date,
   ): TaskItem {
-    const newTask = new TaskItem(
-      title,
-      description,
-      this.generateID(),
-      dueDate,
-    );
+    const newTask = new TaskItem(title, description, this.generateID());
     targetFolder.addComponent(newTask);
 
     console.log(`Task "${title}" created in folder "${targetFolder.title}".`);
@@ -41,9 +38,14 @@ export class taskManager {
     title: string,
     description: string,
     targetFolder: TaskList,
-    dueDate: Date,
   ): TaskList {
-    const newFolder = new TaskList(title, description, dueDate);
+    const newFolder = new TaskList(
+      title,
+      description,
+
+      this.generateID(),
+      new NotStartedState(),
+    );
     targetFolder.addComponent(newFolder);
 
     console.log(`Folder "${title}" created in folder "${targetFolder.title}".`);
