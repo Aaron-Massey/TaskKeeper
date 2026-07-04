@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>TaskKeeper</title>
         <link rel="stylesheet" href="./src/styles.css">
-        <script type="module" src="./src/main.js"></script>
+        <script type="module" src="./src/main.ts"></script>
         <meta name="viewport" content="width=device-width, user-scalable=no viewport-fit=cover">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#eff1f5">
@@ -12,7 +12,30 @@
         <link rel="icon" href="./src/assets/favicon.png" type="image/png">
     </head>
     <body>
-        CS 4213
+
+        <div class="panel" id="primary-panel">
+            <div id="top-bar" class="bar">
+                <div id="title-box">
+                    <div id='app-icon'></div>
+                    <h1 id='title-text'>TaskKeeper</h1>
+                </div>
+                <!-- <div class="button-panel"> -->
+                <!--     <button id='start' class="left right">New Room...</button> -->
+                <!--     <button id='leave' class="right square  hidden"></button> -->
+                <!-- </div> -->
+            </div>
+            <div id="status-bar" class="bar">
+                <div class="toast-block">
+                    <p class="toast-label">Warning!</p>
+                    <p class="toast-content">Please ensure javascript is enabled!</p>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <div id="task-container"></div>
+        </main>
+
         <div id="toast">
             <div id="toast-icon"></div>
             <span id="toast-text"></span>
