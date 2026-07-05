@@ -1,9 +1,13 @@
 import { icons } from '../assets/icons';
 import { TaskComponent } from './components/TaskComponent'
 
-export function createTask(task: TaskComponent): HTMLElement {
+export function createTask(data: TaskComponent): HTMLElement {
   const root = document.createElement('div');
-  root.className = 'task';
+  root.className = 'task-margin';
+
+  const task = document.createElement('div');
+  task.className = 'task';
+  root.appendChild(task);
 
   const icon_list = [icons.task_empty, icons.task_check, icons.task_cross, icons.task_add];
   const icon_svg = icon_list[Math.floor(Math.random() * icon_list.length)];
@@ -15,15 +19,15 @@ export function createTask(task: TaskComponent): HTMLElement {
   const info = document.createElement('div');
   info.className = 'info';
 
-  root.appendChild(icon);
-  root.appendChild(info);
+  task.appendChild(icon);
+  task.appendChild(info);
 
   const title_actions = document.createElement('div');
   title_actions.className = 'title-actions';
 
   const title = document.createElement('p');
   title.className = 'title';
-  title.textContent = task.title;
+  title.textContent = data.title;
 
   const actions = document.createElement('div');
   actions.className = 'actions';
@@ -37,10 +41,10 @@ export function createTask(task: TaskComponent): HTMLElement {
   title_actions.appendChild(actions);
   info.appendChild(title_actions);
 
-  if (task.description) {
+  if (data.description) {
     const desc = document.createElement('p');
     desc.className = 'desc';
-    desc.textContent = task.description;
+    desc.textContent = data.description;
     info.appendChild(desc);
   }
 

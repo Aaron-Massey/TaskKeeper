@@ -341,8 +341,19 @@ main {
 /* TASK */
 /** * * */
 
+.task-margin {
+    padding-top: 1rem;
+
+    &:not(:has(.task-margin:hover)):hover > .task {
+        border-color: var(--highlight);
+
+        & > .info > .title-actions > .actions {
+            opacity: 1;
+        }
+    }
+}
+
 .task {
-    margin-bottom: 1rem;
     border: 2px solid var(--border-trans);
     border-radius: 1.75rem;
     background-color: var(--popup-trans);
@@ -399,13 +410,9 @@ main {
         }
 
         .desc,
-        .task {
-            margin: 0 1.5rem 1rem 0;
+        .task-margin {
+            padding: 0 1.5rem 1rem 0;
         }
-    }
-
-    &:not(:has(.task:hover)):hover > .info > .title-actions > .actions {
-        opacity: 1;
     }
 }
 
