@@ -17,13 +17,13 @@ status_bar_API.setActive = (bool) => {
     else status_bar_element.classList.remove('active');
 }
 
-status_bar_API.addBlock = (id, label, value, func, ...args) => {
+status_bar_API.addBlock = (id, label, value, func) => {
     const status_bar = document.getElementById('status-bar');
     const status_block = document.createElement(func ? 'button' : 'div');
 
     status_block.id = id;
     status_block.classList.add('status-block');
-    if (func) status_block.addEventListener('click', () => func(...args));
+    if (func) status_block.addEventListener('click', () => func());
 
     status_block.innerHTML = `
 		<p class="status-label">${label}</p>

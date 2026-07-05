@@ -15,16 +15,18 @@ const app_icon = document.getElementById('app-icon');
 function statusBarSetDefault() {
     status_bar.reset();
     // status_bar.addBlock('', 'repo', `<a href="https://github.com/Aaron-Massey/TaskKeeper/">Github</a>`)
-    status_bar.addBlock('', 'create', 'new task', console.log, 2);
-    status_bar.addBlock('', 'create', 'new list', console.log, 2);
+    status_bar.addBlock('', 'create', 'new task', () => { task_container?.appendChild(makeTask()) });
+    status_bar.addBlock('', 'create', 'new list', () => { task_container?.appendChild(makeTask()) });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (app_icon) app_icon.innerHTML = icons.task_check;
+    if (app_icon) app_icon.innerHTML = icons.happy;
     statusBarSetDefault();
+    toast.display("Loaded!", undefined, 'happy')
 });
 
 // Task testing
+
 const titles = ["Milk", "Cheese", "Cookies", "Eggs", "Beef", "Bread", "Soap", "Fruit"];
 const descs = ["It's at the store", "That way the noise is. Tyrant! Show thy face. If thou be'eth slain and with no stroke of mine, my wife and children's ghosts will haunt me still. I cannot strike at wretched kerns whose arms are hired to bear theirs taves. Either thou, Macbeth, else my sword with an unbattr'ed edge I sheath again undeeded. There thou should be. By this great clatter, one of greatest note seems bruited. Let me find him, fortune, and more, I beg not."];
 
@@ -48,5 +50,5 @@ function makeTask(): HTMLElement {
 }
 
 for (let i = 0; i < 20; i++) {
-    task_container?.appendChild(makeTask());
+    // task_container?.appendChild(makeTask());
 }

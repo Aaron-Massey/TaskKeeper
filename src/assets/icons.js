@@ -37,12 +37,21 @@ icons.add = `
 </svg>
 `
 
+icons.edit = `
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M43.6404 248.193C49.6404 252.224 61.6404 260.666 61.6404 262.193" stroke="var(--text)" stroke-width="30" stroke-linecap="round"/>
+<path d="M42.4014 200.703C38.867 213.293 21.6995 267.681 29.7783 274.228C37.8571 280.774 127.228 252.069 134.297 247.033C141.366 241.998 269.112 87.8971 269.617 76.3144C270.122 64.7316 262.548 45.595 242.351 29.9835C222.154 14.372 182.77 26.4583 180.75 29.9835C178.731 33.5087 45.9358 188.113 42.4014 200.703Z" stroke="var(--text)" stroke-width="30" stroke-linecap="round"/>
+<path d="M44.6404 195.249C56.0392 185.835 89.3976 183.045 131.64 247.193" stroke="var(--text)" stroke-width="30" stroke-linecap="round"/>
+<path d="M157 63.5C173.167 61.5 194.5 52.8333 210.5 63.5C226.5 74.1667 239.167 89.5 247 99.5" stroke="var(--text)" stroke-width="30" stroke-linecap="round"/>
+</svg>
+`
+
 icons.trash = `
 <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M62 99C84.6303 90.9722 108.122 82 148.709 82C189.296 82 212.787 88.4537 238 95.2222" stroke="var(--rosewater)" stroke-width="30" stroke-linecap="round"/>
-<path d="M79 99C83.2011 148.718 92.0881 249.644 94.0271 255.61C96.4508 263.068 205.519 265.554 209.397 263.068C212.499 261.079 219.092 152.861 222 99M111 81.5C108.667 68 105.4 40.5 111 38.5C118 36 188 36.5 192 42C195.2 46.4 192.667 65.5 192 79" stroke="var(--rosewater)" stroke-width="30" stroke-linecap="round"/>
-<path d="M123.5 129.5L130 218" stroke="var(--rosewater)" stroke-width="30" stroke-linecap="round"/>
-<path d="M178 125.5L170 222" stroke="var(--rosewater)" stroke-width="30" stroke-linecap="round"/>
+<path d="M62 99C84.6303 90.9722 108.122 82 148.709 82C189.296 82 212.787 88.4537 238 95.2222" stroke="var(--red)" stroke-width="30" stroke-linecap="round"/>
+<path d="M79 99C83.2011 148.718 92.0881 249.644 94.0271 255.61C96.4508 263.068 205.519 265.554 209.397 263.068C212.499 261.079 219.092 152.861 222 99M111 81.5C108.667 68 105.4 40.5 111 38.5C118 36 188 36.5 192 42C195.2 46.4 192.667 65.5 192 79" stroke="var(--red)" stroke-width="30" stroke-linecap="round"/>
+<path d="M123.5 129.5L130 218" stroke="var(--red)" stroke-width="30" stroke-linecap="round"/>
+<path d="M178 125.5L170 222" stroke="var(--red)" stroke-width="30" stroke-linecap="round"/>
 </svg>
 `
 
