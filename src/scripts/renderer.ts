@@ -1,4 +1,5 @@
 import { icons } from '../assets/icons';
+import toast from './toast'
 import { TaskComponent } from './components/TaskComponent'
 
 export function createTask(data: TaskComponent): HTMLElement {
@@ -33,9 +34,9 @@ export function createTask(data: TaskComponent): HTMLElement {
     const actions = document.createElement('div');
     actions.className = 'actions';
     actions.innerHTML = `
-    <button>${icons.add}</button>
-    <button>${icons.edit}</button>
-    <button>${icons.trash}</button>
+    <button onClick="toast.display('Add')">${icons.add}</button>
+    <button onClick="toast.display('Edit')">${icons.edit}</button>
+    <button onClick="toast.display('Delete')">${icons.trash}</button>
   `
 
     title_actions.appendChild(title);
