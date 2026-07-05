@@ -228,10 +228,6 @@ input:focus, button:focus {
 	align-content: center;
 }
 
-#top-bar {
-	margin-bottom: 1rem;
-}
-
 #title-box {
 	display: flex;
 	flex-direction: row;

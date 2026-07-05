@@ -48,6 +48,5 @@ export function createTask(data: TaskComponent): HTMLElement {
     info.appendChild(desc);
   }
 
-
   return root;
 }
