@@ -233,7 +233,6 @@ input:focus, button:focus {
 }
 
 #title-box {
-	cursor: pointer;
 	display: flex;
 	flex-direction: row;
 	width: 100%;
