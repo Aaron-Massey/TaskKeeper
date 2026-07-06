@@ -4,6 +4,7 @@ export interface TaskComponent {
     title: string;
     description: string;
 
+    getID(): number;
     display(indentation?: string): void;
 
     addComponent(component: TaskComponent): void;

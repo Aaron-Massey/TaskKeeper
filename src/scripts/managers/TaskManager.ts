@@ -3,7 +3,7 @@ import { TaskItem } from "../components/TaskItem";
 import { TaskComponent } from "../components/TaskComponent";
 import { NotStartedState } from "../states/NotStartedState";
 
-export class taskManager {
+export class TaskManager {
   public rootFolder: TaskList;
   private currentID: number = 0;
 
@@ -50,5 +50,18 @@ export class taskManager {
 
     console.log(`Folder "${title}" created in folder "${targetFolder.title}".`);
     return newFolder;
+  }
+
+  public updateComponent(
+    component: TaskComponent,
+    title: string,
+    description: string,
+  ): void {
+    component.title = title;
+    component.description = description;
+  }
+
+  public removeComponent(component: TaskComponent, targetFolder: TaskList): void {
+    targetFolder.removeComponent(component);
   }
 }
