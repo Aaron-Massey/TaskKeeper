@@ -563,3 +563,17 @@ main {
   border-radius: 10px;
   cursor: pointer;
 }
+.task-list {
+  border-style: dashed;
+  background: rgba(255, 255, 255, 0.03);
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.task-list .title {
+  font-size: 1.25rem;
+}
+
+.task-list .info {
+  width: 100%;
+}

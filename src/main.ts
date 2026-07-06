@@ -7,10 +7,13 @@ import * as renderer from './scripts/renderer'
 import { TaskList } from './scripts/components/TaskList';
 import { NotStartedState } from './scripts/states/NotStartedState';
 import { openTaskPopup } from './scripts/popup';
+import { InProgressState } from './scripts/states/InProgressState';
+import { CompletedState } from './scripts/states/CompletedState';
 
 type SavedTask = {
   title: string;
   description: string;
+  state: string;
 };
 
 // Elements
@@ -30,7 +33,7 @@ function statusBarSetDefault() {
     task_container?.appendChild(taskElement);
 
     saveTasks();
-  });
+  }, "Task Name");
 });
 
   status_bar.addBlock('', 'create', 'new list', () => {
@@ -46,7 +49,7 @@ function statusBarSetDefault() {
     task_container?.appendChild(listElement);
 
     saveTasks();
-  });
+  }, "List Name");
 });
 }
 
@@ -118,11 +121,14 @@ function saveTasks(): void {
       return;
     }
 
-    tasks.push({
-      title: titleElement.textContent || "",
-      description: descElement?.textContent || "",
+const state = taskElement.getAttribute("data-state") || "NotStartedState";
+
+tasks.push({
+  title: titleElement.textContent || "",
+  description: descElement?.textContent || "",
+  state: state,
     });
-  });
+});
 
   localStorage.setItem("taskkeeper-tasks", JSON.stringify(tasks));
 }
@@ -132,6 +138,15 @@ function loadTasks(): void {
 
   savedTasks.forEach((savedTask) => {
     const task = new TaskItem(savedTask.title, savedTask.description, Date.now());
+
+    if (savedTask.state === "InProgressState") {
+      task.setState(new InProgressState());
+    } else if (savedTask.state === "CompletedState") {
+      task.setState(new CompletedState());
+    } else {
+      task.setState(new NotStartedState());
+    }
+
     const taskElement = renderer.createTask(task);
     task_container?.appendChild(taskElement);
   });

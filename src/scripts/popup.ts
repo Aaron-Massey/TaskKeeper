@@ -2,7 +2,8 @@ export function openTaskPopup(
   titleText: string,
   defaultTitle: string,
   defaultDescription: string,
-  onSave: (title: string, description: string) => void
+  onSave: (title: string, description: string) => void,
+  nameLabel: string = "Task Name"
 ): void {
   const overlay = document.createElement("div");
   overlay.className = "popup-overlay";
@@ -11,7 +12,7 @@ export function openTaskPopup(
     <div class="popup-box">
       <h2>${titleText}</h2>
 
-      <label>Task Name</label>
+      <label>${nameLabel}</label>
       <input id="popup-title" type="text" value="${defaultTitle}" />
 
       <label>Description</label>
@@ -42,7 +43,7 @@ export function openTaskPopup(
     const description = descInput.value.trim();
 
     if (!title) {
-      alert("Please enter a task name.");
+      alert(`Please enter a ${nameLabel.toLowerCase()}.`);
       return;
     }
 
