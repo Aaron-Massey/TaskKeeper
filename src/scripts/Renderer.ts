@@ -4,6 +4,43 @@ import { NotStartedState } from './states/NotStartedState';
 import { InProgressState } from './states/InProgressState';
 import { CompletedState } from './states/CompletedState';
 
+export function editTask(
+  data: TaskComponent,
+  rootElement: HTMLElement,
+  newTitle?: string,
+  newDescription?: string,
+): void {
+  const titleElement = rootElement.querySelector('.title') as HTMLParagraphElement;
+  const infoContainer = rootElement.querySelector('.info') as HTMLDivElement;
+  let descElement = rootElement.querySelector('.desc') as HTMLParagraphElement;
+
+  if (!titleElement) {
+    console.error('Could not find the required titleElement for editing');
+    return;
+  }
+  if (!infoContainer) {
+    console.error('Could not find required infoContainer for editing');
+    return;
+  }
+
+  if (newTitle) {
+    data.title = newTitle;
+    titleElement.textContent = newTitle;
+  }
+
+  if (newDescription) {
+    data.description = newDescription;
+    if (descElement) {
+      descElement.textContent = newDescription;
+    } else {
+      descElement = document.createElement('p');
+      descElement.className = 'desc';
+      descElement.textContent = newDescription;
+      infoContainer.appendChild(descElement);
+    }
+  }
+}
+
 export function render(node: TaskComponent, container: HTMLElement): void {
   container.innerHTML = '';
   renderNode(node, container, true);
