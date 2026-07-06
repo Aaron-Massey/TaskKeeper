@@ -1,11 +1,11 @@
 {
-    "compilerOptions": {
-        "noEmit": true,
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "strict": true,
-        "allowJs": true
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "allowJs": true
+  },
+  "include": ["src/**/*"]
 }
