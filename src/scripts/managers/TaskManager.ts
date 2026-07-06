@@ -27,7 +27,6 @@ export class TaskManager {
         if (!targetFolder) targetFolder = this.rootFolder;
 
         const newTask = new TaskItem(title, description, this.generateID());
-        // @ts-ignore
         targetFolder.addComponent(newTask);
 
         console.log(`Task "${title}" created in folder "${targetFolder.title}".`);
