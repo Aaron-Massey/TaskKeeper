@@ -331,6 +331,7 @@ main {
             width: 4rem;
             height: 4rem;
             margin: 0 0.5rem 1.5rem;
+            cursor: pointer;
         }
 
         & > .title {
@@ -408,6 +409,7 @@ main {
     padding-top: 0.5rem;
     display: flex;
     overflow: visible;
+    cursor: pointer;
 
     svg {
         width: 2rem;
