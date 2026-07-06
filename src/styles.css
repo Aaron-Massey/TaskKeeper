@@ -358,7 +358,11 @@ main {
     }
 
     & > .desc {
-e       margin-top: 0;
+        margin-top: 0;
+
+        &:empty {
+            display: none;
+        }
     }
 }
 
@@ -387,6 +391,10 @@ e       margin-top: 0;
 
         & > .desc {
             margin: 0;
+
+            &:empty {
+                display: none;
+            }
         }
 
         & > .desc, & > .task-margin {
