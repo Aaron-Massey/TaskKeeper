@@ -36,6 +36,23 @@
             <div id="task-container"></div>
         </main>
 
+        <dialog id="task-dialog">
+            <form id="task-form">
+                <h2 id="task-form-title">New task</h2>
+
+                <label for="task-title-input">Title</label>
+                <input id="task-title-input" name="title" type="text" maxlength="80" autocomplete="off" required>
+
+                <label for="task-description-input">Description</label>
+                <textarea id="task-description-input" name="description" maxlength="500" rows="5"></textarea>
+
+                <div class="dialog-actions">
+                    <button id="task-form-cancel" type="button">Cancel</button>
+                    <button id="task-form-submit" type="submit">Save</button>
+                </div>
+            </form>
+        </dialog>
+
         <div id="toast">
             <div id="toast-icon"></div>
             <span id="toast-text"></span>

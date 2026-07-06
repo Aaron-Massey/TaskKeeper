@@ -29,14 +29,16 @@ export class TaskList implements TaskComponent {
   }
 
   public removeComponent(component: TaskComponent): void {
-    var index = this.children.indexOf(component);
+    const index = this.children.indexOf(component);
     if (index == -1) {
-      console.error(`Task component does not exist: {$component.title}`);
+      console.error(`Task component does not exist: ${component.title}`);
       return;
     }
-    if (index !== 1) {
-      this.children.splice(index, 1);
-    }
+    this.children.splice(index, 1);
+  }
+
+  public getChildren(): readonly TaskComponent[] {
+    return this.children;
   }
 
   public display(indentation: string = ""): void {
@@ -45,7 +47,7 @@ export class TaskList implements TaskComponent {
     }
   }
 
-  public getID() {
+  public getID(): number {
     return this.id;
   }
 
