@@ -1,56 +1,130 @@
 import { icons } from '../assets/icons';
 import toast from './toast'
 import { TaskComponent } from './components/TaskComponent'
+import { openTaskPopup } from './popup';
+import { TaskItem } from './components/TaskItem';
+import { TaskList } from './components/TaskList';
 
 export function createTask(data: TaskComponent): HTMLElement {
-    const root = document.createElement('div');
-    root.className = 'task-margin';
+  const isList = data instanceof TaskList;
 
-    const task = document.createElement('div');
-    task.className = 'task';
-    task.tabIndex = 0;
-    root.appendChild(task);
+  const root = document.createElement('div');
+  root.className = 'task-margin';
+  root.setAttribute("data-state", data.getState().constructor.name);
 
-    const icon_list = [icons.task_empty, icons.task_check, icons.task_cross, icons.task_add];
-    const icon_svg = icon_list[Math.floor(Math.random() * icon_list.length)];
+  const task = document.createElement('div');
+  task.className = isList ? 'task task-list' : 'task';
+  task.tabIndex = 0;
+  root.appendChild(task);
 
-    const icon = document.createElement('div');
-    icon.className = 'icon';
-    icon.innerHTML = icon_svg;
+  const icon = document.createElement('div');
+  icon.className = 'icon';
+  const stateName = data.getState().constructor.name;
 
-    const info = document.createElement('div');
-    info.className = 'info';
+if (isList) {
+  icon.innerHTML = icons.add;
+} else if (stateName === "CompletedState") {
+  icon.innerHTML = icons.task_check;
+} else if (stateName === "InProgressState") {
+  icon.innerHTML = icons.task_add;
+} else {
+  icon.innerHTML = icons.task_empty;
+}
+  if (!isList) {
+    icon.addEventListener("click", () => {
+      const stateName = data.getState().constructor.name;
 
-    task.appendChild(icon);
-    task.appendChild(info);
+      if (stateName === "NotStartedState") {
+        data.startTask();
+        icon.innerHTML = icons.task_add;
+        toast.display(`"${data.title}" started`);
+      } else if (stateName === "InProgressState") {
+        data.completeTask();
+        icon.innerHTML = icons.task_check;
+        toast.display(`"${data.title}" completed`);
+      } else if (stateName === "CompletedState") {
+        toast.display(`"${data.title}" is already completed`);
+      }
 
-    const title_actions = document.createElement('div');
-    title_actions.className = 'title-actions';
+      root.setAttribute("data-state", data.getState().constructor.name);
+      document.dispatchEvent(new CustomEvent("tasksUpdated"));
+    });
+  }
 
-    const title = document.createElement('p');
-    title.className = 'title';
-    title.textContent = data.title;
+  const info = document.createElement('div');
+  info.className = 'info';
 
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-    actions.innerHTML = `
-    <button onClick="toast.display('Add')">${icons.add}</button>
-    <button onClick="toast.display('Edit')">${icons.edit}</button>
-    <button onClick="toast.display('Delete')">${icons.trash}</button>
-  `
+  task.appendChild(icon);
+  task.appendChild(info);
 
-    title_actions.appendChild(title);
-    title_actions.appendChild(actions);
-    info.appendChild(title_actions);
+  const title_actions = document.createElement('div');
+  title_actions.className = 'title-actions';
 
-    if (data.description) {
-        const desc = document.createElement('p');
-        desc.className = 'desc';
-        desc.textContent = data.description;
-        info.appendChild(desc);
+  const title = document.createElement('p');
+  title.className = 'title';
+  title.textContent = isList ? `📁 ${data.title}` : data.title;
+
+  const actions = document.createElement('div');
+  actions.className = 'actions';
+
+  const addButton = document.createElement("button");
+  addButton.innerHTML = icons.add;
+
+  const editButton = document.createElement("button");
+  editButton.innerHTML = icons.edit;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = icons.trash;
+
+  actions.appendChild(addButton);
+  actions.appendChild(editButton);
+  actions.appendChild(deleteButton);
+
+  editButton.addEventListener("click", () => {
+    openTaskPopup(
+  isList ? "Edit List" : "Edit Task",
+  data.title,
+  data.description,
+  (newTitle, newDescription) => {
+    editTask(data, root, newTitle, newDescription, isList);
+    document.dispatchEvent(new CustomEvent("tasksUpdated"));
+  },
+  isList ? "List Name" : "Task Name"
+  );
+  });
+
+  deleteButton.addEventListener("click", () => {
+    const confirmDelete = confirm(`Delete "${data.title}"?`);
+
+    if (confirmDelete) {
+      root.remove();
+      document.dispatchEvent(new CustomEvent("tasksUpdated"));
     }
+  });
 
-    return root;
+  addButton.addEventListener("click", () => {
+   openTaskPopup("Add Subtask", "", "", (title, description) => {
+      const subtask = new TaskItem(title, description, Date.now());
+      const subtaskElement = createTask(subtask);
+
+      info.appendChild(subtaskElement);
+
+      document.dispatchEvent(new CustomEvent("tasksUpdated"));
+   }, "Subtask Name");
+  });
+
+  title_actions.appendChild(title);
+  title_actions.appendChild(actions);
+  info.appendChild(title_actions);
+
+  if (data.description) {
+    const desc = document.createElement('p');
+    desc.className = 'desc';
+    desc.textContent = data.description;
+    info.appendChild(desc);
+  }
+
+  return root;
 }
 
 export function editTask(
@@ -58,6 +132,7 @@ export function editTask(
   rootElement: HTMLElement,
   newTitle?: string,
   newDescription?: string,
+  isList: boolean = false,
 ): void {
   const titleElement = rootElement.querySelector(
     ".title",
@@ -69,18 +144,27 @@ export function editTask(
     console.error("Could not find the required titleElement for editing");
     return;
   }
+
   if (!infoContainer) {
     console.error("Could not find required infoContainer for editing");
     return;
   }
 
-  if (newTitle) {
+  if (newTitle !== undefined) {
     data.title = newTitle;
-    titleElement.textContent = newTitle;
+    titleElement.textContent = isList ? `📁 ${newTitle}` : newTitle;
   }
 
-  if (newDescription) {
+  if (newDescription !== undefined) {
     data.description = newDescription;
+
+    if (newDescription.trim() === "") {
+      if (descElement) {
+        descElement.remove();
+      }
+      return;
+    }
+
     if (descElement) {
       descElement.textContent = newDescription;
     } else {

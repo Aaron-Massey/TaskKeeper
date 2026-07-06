@@ -1,12 +1,12 @@
 import { TaskState } from "./TaskState";
-import { TaskItem } from "../components/TaskItem";
+import { TaskComponent } from "../components/TaskComponent";
 
 export class CompletedState implements TaskState {
-  public startTask(task: TaskItem): void {
+  public startTask(task: TaskComponent): void {
     console.error(`Task already completed: ${task.title}.`);
   }
 
-  public completeTask(task: TaskItem): void {
+  public completeTask(task: TaskComponent): void {
     console.error(`Task already completed: ${task.title}.`);
   }
 }

@@ -52,4 +52,15 @@ export class TaskList implements TaskComponent {
   public getState() {
     return this.state;
   }
+  public setState(newState: TaskState): void {
+  this.state = newState;
+}
+
+public startTask(): void {
+  this.state.startTask(this);
+}
+
+public completeTask(): void {
+  this.state.completeTask(this);
+}
 }
