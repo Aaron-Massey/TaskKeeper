@@ -1,5 +1,5 @@
 import { icons } from '../assets/icons';
-import { TaskComponent } from './components/TaskComponent'
+import { TaskComponent } from './components/TaskComponent';
 import { NotStartedState } from './states/NotStartedState';
 import { InProgressState } from './states/InProgressState';
 import { CompletedState } from './states/CompletedState';
@@ -16,11 +16,11 @@ function renderNode(node: TaskComponent, parent: HTMLElement, isMain = false): v
   const children = node.getChildren();
   const container = element.querySelector('[data-child_container]');
 
-  if (children.length == 0) return
+  if (children.length == 0) return;
   if (container instanceof HTMLElement) {
-    children.forEach(child => {
+    children.forEach((child) => {
       renderNode(child, container);
-    })
+    });
   } else {
     throw new Error("Can't find where to place children!");
   }
@@ -61,7 +61,7 @@ export function createMainElement(node: TaskComponent): HTMLElement {
 
   const icon = document.createElement('div');
   icon.className = 'task-icon';
-  icon.dataset.action = 'state'
+  icon.dataset.action = 'state';
   icon.innerHTML = getIconForNode(node);
 
   const title = document.createElement('p');
@@ -82,7 +82,7 @@ export function createMainElement(node: TaskComponent): HTMLElement {
   desc.textContent = node.description;
   root.appendChild(desc);
 
-  root.appendChild(children)
+  root.appendChild(children);
 
   return root;
 }

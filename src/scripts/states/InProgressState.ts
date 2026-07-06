@@ -1,6 +1,6 @@
-import { TaskState } from "./TaskState";
-import { TaskItem } from "../components/TaskItem";
-import { CompletedState } from "./CompletedState";
+import { TaskState } from './TaskState';
+import { TaskItem } from '../components/TaskItem';
+import { CompletedState } from './CompletedState';
 
 export class InProgressState implements TaskState {
   public startTask(task: TaskItem): void {

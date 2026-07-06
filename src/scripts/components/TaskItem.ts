@@ -1,68 +1,66 @@
-import { TaskComponent } from "./TaskComponent";
-import { TaskState } from "../states/TaskState";
-import { NotStartedState } from "../states/NotStartedState";
+import { TaskComponent } from './TaskComponent';
+import { TaskState } from '../states/TaskState';
+import { NotStartedState } from '../states/NotStartedState';
 
 export class TaskItem implements TaskComponent {
-    public title: string;
-    public description: string;
+  public title: string;
+  public description: string;
 
-    private id: string;
-    private state: TaskState;
-    public parent?: TaskComponent | null;
+  private id: string;
+  private state: TaskState;
+  public parent?: TaskComponent | null;
 
-    constructor(title: string, description: string, id: string, _dueDate?: Date) {
-        this.title = title;
+  constructor(title: string, description: string, id: string, _dueDate?: Date) {
+    this.title = title;
 
-        this.description = description;
+    this.description = description;
 
-        this.id = id;
+    this.id = id;
 
-        this.state = new NotStartedState();
-        this.parent = null;
-    }
+    this.state = new NotStartedState();
+    this.parent = null;
+  }
 
-    public getID() {
-        return this.id;
-    }
+  public getID() {
+    return this.id;
+  }
 
-    public setState(newState: TaskState): void {
-        this.state = newState;
-    }
+  public setState(newState: TaskState): void {
+    this.state = newState;
+  }
 
-    public getState(): TaskState {
-        return this.state;
-    }
+  public getState(): TaskState {
+    return this.state;
+  }
 
-    public setParent(parent: TaskComponent | null): void {
-        this.parent = parent;
-    }
+  public setParent(parent: TaskComponent | null): void {
+    this.parent = parent;
+  }
 
-    public getParent(): TaskComponent | null {
-        return this.parent ?? null;
-    }
+  public getParent(): TaskComponent | null {
+    return this.parent ?? null;
+  }
 
-    public startTask(): void {
-        this.state.startTask(this);
-    }
-    public completeTask(): void {
-        this.state.completeTask(this);
-    }
+  public startTask(): void {
+    this.state.startTask(this);
+  }
+  public completeTask(): void {
+    this.state.completeTask(this);
+  }
 
-    public display(_indentation: string = ""): void {
-        console.log(
-            `[Task: ${this.title}] - Status: ${this.state.constructor.name}`,
-        );
-    }
+  public display(_indentation: string = ''): void {
+    console.log(`[Task: ${this.title}] - Status: ${this.state.constructor.name}`);
+  }
 
-    public getChildren(): TaskComponent[] {
-        return [];
-    }
+  public getChildren(): TaskComponent[] {
+    return [];
+  }
 
-    public addComponent(_component: TaskComponent): void {
-        throw new Error("Cannot add components to a taskItem (leaf node)");
-    }
+  public addComponent(_component: TaskComponent): void {
+    throw new Error('Cannot add components to a taskItem (leaf node)');
+  }
 
-    public removeComponent(_component: TaskComponent): void {
-        throw new Error("Cannot remove components to a taskItem (leaf node)");
-    }
+  public removeComponent(_component: TaskComponent): void {
+    throw new Error('Cannot remove components to a taskItem (leaf node)');
+  }
 }
