@@ -3,53 +3,57 @@ import { TaskState } from "../states/TaskState";
 import { NotStartedState } from "../states/NotStartedState";
 
 export class TaskItem implements TaskComponent {
-  public title: string;
-  public description: string;
+    public title: string;
+    public description: string;
 
-  private id: number;
+    private id: string;
 
-  private state: TaskState;
+    private state: TaskState;
 
-  constructor(title: string, description: string, id: number, dueDate?: Date) {
-    this.title = title;
+    constructor(title: string, description: string, id: string, _dueDate?: Date) {
+        this.title = title;
 
-    this.description = description;
+        this.description = description;
 
-    this.id = id;
+        this.id = id;
 
-    this.state = new NotStartedState();
-  }
+        this.state = new NotStartedState();
+    }
 
-  public getID(): number {
-    return this.id;
-  }
+    public getID() {
+        return this.id;
+    }
 
-  public setState(newState: TaskState): void {
-    this.state = newState;
-  }
+    public setState(newState: TaskState): void {
+        this.state = newState;
+    }
 
-  public getState(): TaskState {
-    return this.state;
-  }
+    public getState(): TaskState {
+        return this.state;
+    }
 
-  public startTask(): void {
-    this.state.startTask(this);
-  }
-  public completeTask(): void {
-    this.state.completeTask(this);
-  }
+    public startTask(): void {
+        this.state.startTask(this);
+    }
+    public completeTask(): void {
+        this.state.completeTask(this);
+    }
 
-  public display(indentation: string = ""): void {
-    console.log(
-      `[Task: ${this.title}] - Status: ${this.state.constructor.name}`,
-    );
-  }
+    public display(_indentation: string = ""): void {
+        console.log(
+            `[Task: ${this.title}] - Status: ${this.state.constructor.name}`,
+        );
+    }
 
-  public addComponent(component: TaskComponent): void {
-    throw new Error("Cannot add components to a taskItem (leaf node)");
-  }
+    public getChildren(): TaskComponent[] {
+        return [];
+    }
 
-  public removeComponent(component: TaskComponent): void {
-    throw new Error("Cannot remove components to a taskItem (leaf node)");
-  }
+    public addComponent(_component: TaskComponent): void {
+        throw new Error("Cannot add components to a taskItem (leaf node)");
+    }
+
+    public removeComponent(_component: TaskComponent): void {
+        throw new Error("Cannot remove components to a taskItem (leaf node)");
+    }
 }

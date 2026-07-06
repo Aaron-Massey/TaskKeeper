@@ -160,7 +160,7 @@ button {
     }
 }
 
-input:focus, button:focus {
+input:focus, button:focus, {
     outline: none;
     border: 2px solid var(--highlight) !important;
 }
@@ -320,16 +320,45 @@ main {
 /* TASK */
 /** * * */
 
-.task-margin {
-    padding-top: 1rem;
+.main-task {
 
-    &:not(:has(.task-margin:hover)):hover > .task {
-        border-color: var(--highlight);
+    & > .title-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        & > .info > .title-actions > .actions {
+        & > .task-icon > svg {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 0.5rem 1.5rem;
+        }
+
+        & > .title {
+            flex: 1;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        & > .task-actions {
+            margin: 0;
             visibility: visible;
             opacity: 1;
+
+            & > button {
+                width: 3rem;
+                height: 3rem;
+
+                & > svg {
+                    width: 1.5rem;
+                    height: auto;
+                }
+            }
         }
+    }
+
+    & > .desc {
+e       margin-top: 0;
     }
 }
 
@@ -341,63 +370,82 @@ main {
 
     overflow: hidden;
 
-    .icon {
-        margin: 0 0 0 0.2rem;
-        padding-top: 0.5rem;
-        display: flex;
-        overflow: visible;
-
-        svg {
-            width: 2rem;
-            height: 2rem;
-            margin: 0 0.5rem 0.5rem;
-        }
-    }
-
-    .info {
+    & > .info {
         flex: 1;
 
-        .title-actions {
+        & > .title-actions {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
 
-            .title {
+            & > .title {
                 flex: 1;
                 font-weight: bold;
             }
 
-            .actions {
-                display: flex;
-                gap: 0.5rem;
-                margin: 0.5rem 0.5rem 0 auto;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.25s ease;
-
-                button {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 2rem;
-                    height: 2rem;
-                    border-radius: 50%;
-                    overflow: visible;
-
-                    svg {
-                        width: 1rem;
-                        height: auto;
-                    }
-                }
-            }
         }
 
-        .desc,
-        .task-margin {
+        & > .desc {
+            margin: 0;
+        }
+
+        & > .desc, & > .task-margin {
             padding: 0 1.5rem 1rem 0;
         }
     }
 }
+
+.task-icon {
+    margin: 0 0 0 0.2rem;
+    padding-top: 0.5rem;
+    display: flex;
+    overflow: visible;
+
+    svg {
+        width: 2rem;
+        height: 2rem;
+        margin: 0 0.5rem 0.5rem;
+    }
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0.5rem 0 auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+
+    & > button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        overflow: visible;
+
+        & > svg {
+            width: 1rem;
+            height: auto;
+        }
+    }
+}
+
+/* Hovering task */
+.task-margin {
+    padding-top: 1rem;
+
+    &:not(:has(.task-margin:hover)):hover > .task {
+        border-color: var(--highlight);
+
+        & > .info > .title-actions > .task-actions {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
 
 /* * * * */
 /* TOAST */
