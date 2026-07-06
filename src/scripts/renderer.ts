@@ -1,6 +1,7 @@
 import { icons } from '../assets/icons';
 import toast from './toast'
 import { TaskComponent } from './components/TaskComponent'
+import { openTaskPopup } from './popup';
 
 export function createTask(data: TaskComponent): HTMLElement {
     const root = document.createElement('div');
@@ -11,9 +12,7 @@ export function createTask(data: TaskComponent): HTMLElement {
     task.tabIndex = 0;
     root.appendChild(task);
 
-    const icon_list = [icons.task_empty, icons.task_check, icons.task_cross, icons.task_add];
-    const icon_svg = icon_list[Math.floor(Math.random() * icon_list.length)];
-
+    const icon_svg = icons.task_empty;
     const icon = document.createElement('div');
     icon.className = 'icon';
     icon.innerHTML = icon_svg;
@@ -33,11 +32,41 @@ export function createTask(data: TaskComponent): HTMLElement {
 
     const actions = document.createElement('div');
     actions.className = 'actions';
-    actions.innerHTML = `
-    <button onClick="toast.display('Add')">${icons.add}</button>
-    <button onClick="toast.display('Edit')">${icons.edit}</button>
-    <button onClick="toast.display('Delete')">${icons.trash}</button>
-  `
+
+    const addButton = document.createElement("button");
+    addButton.innerHTML = icons.add;
+
+    const editButton = document.createElement("button");
+    editButton.innerHTML = icons.edit;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML = icons.trash;
+
+    actions.appendChild(addButton);
+    actions.appendChild(editButton);
+    actions.appendChild(deleteButton);
+
+    editButton.addEventListener("click", () => {
+  openTaskPopup("Edit Task", data.title, data.description, (newTitle, newDescription) => {
+    editTask(data, root, newTitle, newDescription);
+
+    document.dispatchEvent(new CustomEvent("tasksUpdated"));
+  });
+});
+
+deleteButton.addEventListener("click", () => {
+  const confirmDelete = confirm(`Delete "${data.title}"?`);
+
+  if (confirmDelete) {
+    root.remove();
+
+    document.dispatchEvent(new CustomEvent("tasksUpdated"));
+  }
+});
+
+addButton.addEventListener("click", () => {
+  toast.display("Add subtask/list popup can go here next");
+});
 
     title_actions.appendChild(title);
     title_actions.appendChild(actions);
@@ -69,18 +98,27 @@ export function editTask(
     console.error("Could not find the required titleElement for editing");
     return;
   }
+
   if (!infoContainer) {
     console.error("Could not find required infoContainer for editing");
     return;
   }
 
-  if (newTitle) {
+  if (newTitle !== undefined) {
     data.title = newTitle;
     titleElement.textContent = newTitle;
   }
 
-  if (newDescription) {
+  if (newDescription !== undefined) {
     data.description = newDescription;
+
+    if (newDescription.trim() === "") {
+      if (descElement) {
+        descElement.remove();
+      }
+      return;
+    }
+
     if (descElement) {
       descElement.textContent = newDescription;
     } else {
