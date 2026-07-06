@@ -7,8 +7,8 @@ export class TaskItem implements TaskComponent {
     public description: string;
 
     private id: string;
-
     private state: TaskState;
+    public parent?: TaskComponent | null;
 
     constructor(title: string, description: string, id: string, _dueDate?: Date) {
         this.title = title;
@@ -18,6 +18,7 @@ export class TaskItem implements TaskComponent {
         this.id = id;
 
         this.state = new NotStartedState();
+        this.parent = null;
     }
 
     public getID() {
@@ -30,6 +31,14 @@ export class TaskItem implements TaskComponent {
 
     public getState(): TaskState {
         return this.state;
+    }
+
+    public setParent(parent: TaskComponent | null): void {
+        this.parent = parent;
+    }
+
+    public getParent(): TaskComponent | null {
+        return this.parent ?? null;
     }
 
     public startTask(): void {

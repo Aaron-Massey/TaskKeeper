@@ -25,7 +25,23 @@ task_container?.addEventListener('click', (event) => {
 
     switch (action) {
         case 'add':
-            toast.display(`add for ${taskId}`);
+            if (taskId) {
+                const node = manager.findByID(taskId);
+                if (node) {
+                    let targetFolder: any = node;
+                    try {
+                        const children = (node as any).getChildren();
+                        if (Array.isArray(children) && children.length === 0) {
+                            targetFolder = manager.convertToComposite(node as any);
+                        }
+                    } catch (e) {
+                        targetFolder = manager.convertToComposite(node as any);
+                    }
+                    manager.createTask('New Task', '', targetFolder instanceof Object && (targetFolder as any).getChildren ? targetFolder : undefined);
+                    if (task_container) Renderer.render(manager.rootFolder, task_container);
+                    toast.display(`Added child to ${taskId}`);
+                }
+            }
             break;
         case 'edit':
             toast.display(`edit ${taskId}`);

@@ -1,5 +1,8 @@
 import { icons } from '../assets/icons';
 import { TaskComponent } from './components/TaskComponent'
+import { NotStartedState } from './states/NotStartedState';
+import { InProgressState } from './states/InProgressState';
+import { CompletedState } from './states/CompletedState';
 
 export function render(node: TaskComponent, container: HTMLElement): void {
     container.innerHTML = '';
@@ -29,6 +32,25 @@ function createNodeElement(node: TaskComponent): HTMLElement {
     return createTaskElement(node);
 }
 
+function getIconForNode(node: TaskComponent): string {
+    let state: any = null;
+    try {
+        state = node.getState();
+    } catch (e) {
+        state = null;
+    }
+    switch (state.constructor.name) {
+        case 'CompletedState':
+            return icons.task_check;
+        case 'InProgressState':
+            return icons.task_add;
+        case 'NotStartedState':
+            return icons.task_empty;
+        default:
+            return icons.task_empty;
+    }
+}
+
 export function createMainElement(node: TaskComponent): HTMLElement {
     const root = document.createElement('div');
     root.className = 'main-task';
@@ -37,12 +59,9 @@ export function createMainElement(node: TaskComponent): HTMLElement {
     const title_actions = document.createElement('div');
     title_actions.className = 'title-actions';
 
-    const icon_list = [icons.task_empty, icons.task_check, icons.task_cross, icons.task_add];
-    const icon_svg = icon_list[Math.floor(Math.random() * icon_list.length)];
-
     const icon = document.createElement('div');
     icon.className = 'task-icon';
-    icon.innerHTML = icon_svg;
+    icon.innerHTML = getIconForNode(node);
 
     const title = document.createElement('p');
     title.className = 'title';
@@ -79,12 +98,9 @@ export function createTaskElement(node: TaskComponent): HTMLElement {
     task.tabIndex = 0;
     root.appendChild(task);
 
-    const icon_list = [icons.task_empty, icons.task_check, icons.task_cross, icons.task_add];
-    const icon_svg = icon_list[Math.floor(Math.random() * icon_list.length)];
-
     const icon = document.createElement('div');
     icon.className = 'task-icon';
-    icon.innerHTML = icon_svg;
+    icon.innerHTML = getIconForNode(node);
 
     const info = document.createElement('div');
     info.className = 'info';
