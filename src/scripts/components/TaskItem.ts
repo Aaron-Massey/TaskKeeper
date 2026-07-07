@@ -32,9 +32,6 @@ export class TaskItem implements TaskComponent {
     return this.state;
   }
 
-  public startTask(): void {
-    this.state.startTask(this);
-  }
   public completeTask(): void {
     this.state.completeTask(this);
   }

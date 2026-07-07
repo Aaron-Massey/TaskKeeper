@@ -1,12 +1,16 @@
 import { TaskState } from "../states/TaskState";
 
 export interface TaskComponent {
-    title: string;
-    description: string;
+  title: string;
+  description: string;
 
-    getID(): number;
-    display(indentation?: string): void;
+  getID(): number;
+  display(indentation?: string): void;
 
-    addComponent(component: TaskComponent): void;
-    removeComponent(component: TaskComponent): void;
+  setState(state: TaskState): void;
+  getState(): TaskState;
+  completeTask(): void;
+
+  addComponent(component: TaskComponent): void;
+  removeComponent(component: TaskComponent): void;
 }

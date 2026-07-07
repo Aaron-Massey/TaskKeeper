@@ -1,6 +1,5 @@
-import { TaskItem } from "../components/TaskItem";
+import { TaskComponent } from "../components/TaskComponent";
 
 export interface TaskState {
-  startTask(task: TaskItem): void;
-  completeTask(task: TaskItem): void;
+  completeTask(task: TaskComponent): void;
 }

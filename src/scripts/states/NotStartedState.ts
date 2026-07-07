@@ -1,14 +1,9 @@
 import { TaskState } from "./TaskState";
-import { TaskItem } from "../components/TaskItem";
-import { InProgressState } from "./InProgressState";
+import { CompletedState } from "./CompletedState";
+import { TaskComponent } from "../components/TaskComponent";
 
 export class NotStartedState implements TaskState {
-  public startTask(task: TaskItem): void {
-    console.log(`Starting task: ${task.title}`);
-    task.setState(new InProgressState());
-  }
-
-  public completeTask(task: TaskItem): void {
-    console.log(`Ending task: ${task.title}.`);
+  public completeTask(task: TaskComponent): void {
+    task.setState(new CompletedState());
   }
 }

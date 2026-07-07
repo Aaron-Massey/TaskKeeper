@@ -51,7 +51,15 @@ export class TaskList implements TaskComponent {
     return this.id;
   }
 
-  public getState() {
+  public setState(newState: TaskState): void {
+    this.state = newState;
+  }
+
+  public getState(): TaskState {
     return this.state;
+  }
+
+  public completeTask(): void {
+    this.state.completeTask(this);
   }
 }
