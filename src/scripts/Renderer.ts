@@ -1,6 +1,5 @@
 import { icons } from "../assets/icons";
 import { TaskComponent } from "./components/TaskComponent";
-import { TaskItem } from "./components/TaskItem";
 import { TaskList } from "./components/TaskList";
 import { CompletedState } from "./states/CompletedState";
 
@@ -85,12 +84,12 @@ export function createTask(
 
   if (data instanceof TaskList) {
     actionBar.appendChild(
-      createActionButton("Add task", icons.add, () =>
+      createActionButton("Add task", icons.add_task, () =>
         actions.onAddTask?.(data),
       ),
     );
     actionBar.appendChild(
-      createActionButton("Add list", icons.task_add, () =>
+      createActionButton("Add list", icons.add_list, () =>
         actions.onAddList?.(data),
       ),
     );

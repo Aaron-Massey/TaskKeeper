@@ -10,7 +10,7 @@ export class TaskItem implements TaskComponent {
 
   private state: TaskState;
 
-  constructor(title: string, description: string, id: number, dueDate?: Date) {
+  constructor(title: string, description: string, id: number) {
     this.title = title;
 
     this.description = description;
@@ -36,17 +36,17 @@ export class TaskItem implements TaskComponent {
     this.state.completeTask(this);
   }
 
-  public display(indentation: string = ""): void {
+  public display(): void {
     console.log(
       `[Task: ${this.title}] - Status: ${this.state.constructor.name}`,
     );
   }
 
-  public addComponent(component: TaskComponent): void {
+  public addComponent(): void {
     throw new Error("Cannot add components to a taskItem (leaf node)");
   }
 
-  public removeComponent(component: TaskComponent): void {
+  public removeComponent(): void {
     throw new Error("Cannot remove components to a taskItem (leaf node)");
   }
 }
